@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.HomeFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    
+    <LinearLayout
+        android:id="@+id/linear_home"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/top_guide_line"
+        app:layout_constraintStart_toStartOf="@+id/left_guide_line"
+        app:layout_constraintEnd_toEndOf="@id/right_guide_line">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:textSize="@dimen/_15ssp"
+            android:textColor="@color/purple_200"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/what_would_to_eat_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What would like to eat"
+        app:layout_constraintTop_toBottomOf="@id/linear_home"
+        app:layout_constraintStart_toStartOf="@id/left_guide_line"
+        android:textColor="@color/purple_200"/>
+    
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_home"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_140sdp"
+        app:layout_constraintStart_toStartOf="@+id/left_guide_line"
+        app:layout_constraintEnd_toEndOf="@+id/right_guide_line"
+        app:layout_constraintTop_toBottomOf="@+id/what_would_to_eat_tv"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/random_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/purple_200"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/over_popular_items_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Over Popular Items"
+        app:layout_constraintTop_toBottomOf="@id/card_view_home"
+        app:layout_constraintStart_toStartOf="@id/left_guide_line"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="@color/purple_200"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"/>
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/over_rv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/over_popular_items_tv"
+        app:layout_constraintStart_toStartOf="@id/left_guide_line"
+        app:layout_constraintEnd_toEndOf="@id/right_guide_line"/>
+
+    <TextView
+        android:id="@+id/categories_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categories"
+        app:layout_constraintTop_toBottomOf="@id/over_rv"
+        app:layout_constraintStart_toStartOf="@id/left_guide_line"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="@color/purple_200"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"/>
+    
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/categories_tv"
+        app:layout_constraintStart_toStartOf="@id/left_guide_line"
+        app:layout_constraintEnd_toEndOf="@id/right_guide_line"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="@dimen/_5sdp">
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categories_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_guide_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.03"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guide_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guide_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
