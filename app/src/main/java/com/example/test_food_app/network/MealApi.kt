@@ -13,7 +13,7 @@ interface MealApi {
     suspend fun getRandomMeal(): Response<MealList>
 
     @GET("/api/json/v1/1/filter.php")
-    suspend fun getPopularMeals(@Query("p1")p1:String):Response<PopularMealList>
+    suspend fun getPopularMeals(@Query("c")category:String):Response<PopularMealList>
 
     @GET("/api/json/v1/1/categories.php")
     suspend fun getCategories():Response<CategoriesList>
