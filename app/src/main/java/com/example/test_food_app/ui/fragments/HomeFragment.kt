@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.example.food_app.view_models.HomeViewModel
 import com.example.test_food_app.adapters.CategoriesHomeAdapter
+import com.example.test_food_app.adapters.PopularMealsAdapter
 import com.example.test_food_app.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,11 +24,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
-     private val homeViewModel : HomeViewModel by viewModels ()
+    private val homeViewModel : HomeViewModel by viewModels ()
+    private lateinit var popularMealsAdapter:PopularMealsAdapter
     private lateinit var categoriesHomeAdapter:CategoriesHomeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        popularMealsAdapter = PopularMealsAdapter()
         categoriesHomeAdapter = CategoriesHomeAdapter()
     }
     override fun onCreateView(
@@ -43,8 +46,23 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getRandomMeal()
+        getPopularMeals()
+        setUpPopularMealRecView()
         getCategories()
         setUpRecViewCategories()
+    }
+    private fun getPopularMeals(){
+        homeViewModel.getPopularMeals()
+        homeViewModel.getPopularMealsLiveData.observe(viewLifecycleOwner){data->
+            //Log.d("TAG123",data.toString())
+            popularMealsAdapter.differ.submitList(data)
+        }
+    }
+    private fun setUpPopularMealRecView(){
+        binding.overRv.apply {
+            layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
+            adapter = popularMealsAdapter
+        }
     }
     private fun getRandomMeal(){
         homeViewModel.getRandomMealLiveData.observe(viewLifecycleOwner){data->

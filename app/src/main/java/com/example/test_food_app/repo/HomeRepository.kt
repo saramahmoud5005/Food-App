@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.food_app.data.MealList
 import com.example.food_app.network.MealApi
 import com.example.test_food_app.data.CategoriesList
+import com.example.test_food_app.data.PopularMeal
+import com.example.test_food_app.data.PopularMealList
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -11,7 +13,7 @@ class HomeRepository @Inject constructor(
     private val mealApi: MealApi
 ) {
 
-    suspend fun getPopularMeals(p1:String):Response<List<MealList>>
+    suspend fun getPopularMeals(p1:String):Response<PopularMealList>
     {
         return  mealApi.getPopularMeals(p1)
     }

@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.food_app.data.Meal
 import com.example.food_app.repo.HomeRepository
 import com.example.test_food_app.data.Category
+import com.example.test_food_app.data.PopularMeal
+import com.example.test_food_app.data.PopularMealList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -38,16 +40,17 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    /*private val _getPopularMealsLiveData =MutableLiveData<Meal>()
-    val getPopularMealsLiveData : LiveData<Meal> = _getPopularMealsLiveData
-    fun getPpularMeals(){
+    private val _getPopularMealsLiveData =MutableLiveData<List<PopularMeal>>()
+    val getPopularMealsLiveData : LiveData<List<PopularMeal>> = _getPopularMealsLiveData
+    fun getPopularMeals(){
         viewModelScope.launch {
             val response =homeRepository.getPopularMeals("Seafood")
-            response.body()!!.meals.let{
-
+            response.body()?.meals.let{
+                _getPopularMealsLiveData.postValue(it)
             }
         }
-    }*/
+    }
+
     private val _getCategoriesStateFlow =MutableStateFlow<List<Category>>(emptyList())
     val getCategoriesStateFlow : MutableStateFlow<List<Category>> = _getCategoriesStateFlow
     fun getCategories(){
