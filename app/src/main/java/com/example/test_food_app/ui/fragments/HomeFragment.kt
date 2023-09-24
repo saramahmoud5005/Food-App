@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.example.food_app.view_models.HomeViewModel
 import com.example.test_food_app.databinding.FragmentHomeBinding
@@ -33,6 +36,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getRandomMeal()
+        getCategories()
     }
     private fun getRandomMeal(){
         homeViewModel.getRandomMealLiveData.observe(viewLifecycleOwner){data->
@@ -47,6 +51,11 @@ class HomeFragment : Fragment() {
             homeViewModel.getCategoriesStateFlow.collect{ data->
                 Log.d("Categories Data",data.toString())
             }
+        }
+    }
+    private fun setUpRecViewCategories(){
+        binding.categoriesRv.apply{
+            LayoutManager = GridLayoutManager(context,3,RecyclerView.VERTICAL,false)
         }
     }
 

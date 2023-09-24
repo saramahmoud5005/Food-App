@@ -6,10 +6,23 @@
     android:layout_margin="@dimen/_5sdp">
 
     <ImageView
+        android:id="@+id/categories_img"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        />
+
+    <TextView
+        android:id="@id/categories_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/categories_img"
+        app:layout_constraintEnd_toEndOf="@+id/categories_img"
+        app:layout_constraintStart_toStartOf="@+id/categories_img"
+
+        android:textColor="@color/purple_200"
+        android:textStyle="bold"
+        android:text="categoryName"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
