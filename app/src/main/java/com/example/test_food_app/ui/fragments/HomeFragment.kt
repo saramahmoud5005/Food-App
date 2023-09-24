@@ -10,10 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.example.food_app.view_models.HomeViewModel
+import com.example.test_food_app.adapters.CategoriesHomeAdapter
 import com.example.test_food_app.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +24,12 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
      private val homeViewModel : HomeViewModel by viewModels ()
+    private lateinit var categoriesHomeAdapter:CategoriesHomeAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        categoriesHomeAdapter = CategoriesHomeAdapter()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +44,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getRandomMeal()
         getCategories()
+        setUpRecViewCategories()
     }
     private fun getRandomMeal(){
         homeViewModel.getRandomMealLiveData.observe(viewLifecycleOwner){data->
@@ -50,12 +58,14 @@ class HomeFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             homeViewModel.getCategoriesStateFlow.collect{ data->
                 Log.d("Categories Data",data.toString())
+                categoriesHomeAdapter.differ.submitList(data)
             }
         }
     }
     private fun setUpRecViewCategories(){
         binding.categoriesRv.apply{
-            LayoutManager = GridLayoutManager(context,3,RecyclerView.VERTICAL,false)
+            layoutManager = GridLayoutManager(context,3,RecyclerView.VERTICAL,false)
+            adapter = categoriesHomeAdapter
         }
     }
 

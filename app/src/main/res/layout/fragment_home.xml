@@ -109,7 +109,9 @@
         app:layout_constraintEnd_toEndOf="@id/right_guide_line"
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardUseCompatPadding="true"
-        app:cardElevation="@dimen/_5sdp">
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="?actionBarSize">
         
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categories_rv"

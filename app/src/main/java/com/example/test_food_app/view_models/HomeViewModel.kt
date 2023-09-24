@@ -54,7 +54,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val response =homeRepository.getCategories()
             response.body()?.categories.let{ data->
-                _getCategoriesStateFlow.value =data
+                _getCategoriesStateFlow.value =data!!
             }
         }
     }
