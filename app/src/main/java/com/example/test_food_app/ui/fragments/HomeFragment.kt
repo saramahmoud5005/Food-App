@@ -10,12 +10,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.example.food_app.view_models.HomeViewModel
+import com.example.test_food_app.R
 import com.example.test_food_app.adapters.CategoriesHomeAdapter
 import com.example.test_food_app.adapters.PopularMealsAdapter
 import com.example.test_food_app.databinding.FragmentHomeBinding
@@ -50,9 +52,36 @@ class HomeFragment : Fragment() {
         getRandomMeal()
         getPopularMeals()
         setUpPopularMealRecView()
+
+        onPopularMealClick()
+
         getCategories()
         setUpRecViewCategories()
+
+        onCategoryMealClick()
     }
+
+    private fun onCategoryMealClick(){
+       categoriesHomeAdapter.onCategoryMealClick = {data->
+           val fragment =CategoriesFragment()
+
+           val bundle = Bundle()
+           bundle.putString("categoryName",data.strCategory)
+           fragment.arguments = bundle
+           findNavController().navigate(R.id.action_fragment_home_to_fragment_category,bundle)
+       }
+    }
+
+    private fun onPopularMealClick(){
+        popularMealsAdapter.onPopularMealClick = { data->
+            val intent = Intent(context,MealActivity::class.java)
+            intent.putExtra("mealId",data.idMeal)
+            intent.putExtra("mealTitle",data.strMeal)
+            intent.putExtra("mealImg",data.strMealThumb)
+            startActivity(intent)
+        }
+    }
+
     private fun getPopularMeals(){
         homeViewModel.getPopularMeals()
         homeViewModel.getPopularMealsLiveData.observe(viewLifecycleOwner){data->
@@ -60,12 +89,14 @@ class HomeFragment : Fragment() {
             popularMealsAdapter.differ.submitList(data)
         }
     }
+
     private fun setUpPopularMealRecView(){
         binding.overRv.apply {
             layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
             adapter = popularMealsAdapter
         }
     }
+
     private fun getRandomMeal(){
         homeViewModel.getRandomMealLiveData.observe(viewLifecycleOwner){data->
             Glide.with(this)
@@ -85,6 +116,7 @@ class HomeFragment : Fragment() {
         }
 
     }
+
     private fun getCategories(){
         homeViewModel.getCategories()
         lifecycleScope.launchWhenStarted {
@@ -94,6 +126,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
     private fun setUpRecViewCategories(){
         binding.categoriesRv.apply{
             layoutManager = GridLayoutManager(context,3,RecyclerView.VERTICAL,false)

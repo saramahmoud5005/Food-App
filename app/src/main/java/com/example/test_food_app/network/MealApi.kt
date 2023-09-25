@@ -20,4 +20,7 @@ interface MealApi {
 
     @GET("/api/json/v1/1/lookup.php")
     suspend fun getMealInfo(@Query("i") mealId:String):Response<MealList>
+
+    @GET("/api/json/v1/1/filter.php")
+    suspend fun getcategory(@Query("c")category:String):Response<PopularMealList>
 }

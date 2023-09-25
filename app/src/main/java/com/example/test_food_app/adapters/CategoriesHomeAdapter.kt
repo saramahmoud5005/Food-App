@@ -11,6 +11,7 @@ import com.example.test_food_app.databinding.CategoriesRowBinding
 
 class CategoriesHomeAdapter:RecyclerView.Adapter<CategoriesHomeAdapter.ViewHolder>() {
 
+    lateinit var onCategoryMealClick :((com.example.test_food_app.data.Category)->Unit)
 
     private val diffUtil = object :DiffUtil.ItemCallback<com.example.test_food_app.data.Category>(){
         override fun areItemsTheSame(
@@ -47,6 +48,10 @@ class CategoriesHomeAdapter:RecyclerView.Adapter<CategoriesHomeAdapter.ViewHolde
             .into(holder.binding.categoriesImg)
 
         holder.binding.categoriesTv.text = data.strCategory
+
+        holder.itemView.setOnClickListener{
+            onCategoryMealClick.invoke(data)
+        }
     }
 
     override fun getItemCount() = differ.currentList.size
