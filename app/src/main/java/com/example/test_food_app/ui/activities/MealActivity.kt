@@ -4,13 +4,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.example.food_app.data.Meal
 import com.example.test_food_app.databinding.ActivityMealBinding
 import com.example.test_food_app.view_models.MealViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class MealActivity:AppCompatActivity() {
@@ -29,8 +33,22 @@ class MealActivity:AppCompatActivity() {
         setContentView(binding.root)
 
         getMealInfo()
+        mealViewModel.getMealInfo(mealId)
+        setMealInfoInViews()
+
+        binding.fltBtnFav.setOnClickListener{
+            mealViewModel.insertOrUpdateMeal(saveMeal!!)
+            lifecycleScope.launchWhenStarted {
+                mealViewModel.getSavedMeal().collect{ data->
+                    Log.d("MealActivity",data.toString())
+                }
+            }
+
+        }
 
     }
+
+
     private fun getMealInfo(){
        val intent =intent
         mealId = intent.getStringExtra("mealId").toString()
@@ -44,8 +62,11 @@ class MealActivity:AppCompatActivity() {
         binding.collapsing.title=mealTitle
     }
 
+    private var saveMeal:Meal?=null
     private fun setMealInfoInViews(){
         mealViewModel.getMealInfoLiveData.observe(this, Observer {data ->
+
+            saveMeal = data
             binding.categoryTv.text = "Category: "+data.strCategory
             binding.locationTv.text = "Location: "+data.strArea
             binding.detailsInstructionsTv.text = data.strInstructions

@@ -29,4 +29,14 @@ class MealViewModel @Inject constructor(private val mealRepository: MealReposito
             }
         }
     }
+
+    fun insertOrUpdateMeal(meal: Meal)=viewModelScope.launch {
+        mealRepository.insertOrUpdateMeal(meal)
+    }
+
+    fun deleteMeal(meal: Meal)=viewModelScope.launch {
+        mealRepository.deleteMeal(meal)
+    }
+
+    fun getSavedMeal()=mealRepository.getSavedMeal
 }

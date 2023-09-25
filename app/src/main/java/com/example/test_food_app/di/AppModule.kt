@@ -1,6 +1,9 @@
 package com.example.food_app.di
 
+import android.app.Application
+import androidx.room.Room
 import com.example.food_app.network.MealApi
+import com.example.test_food_app.database.MealDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +28,10 @@ object AppModule {
             .client(okHttpClient)
             .build()
             .create(MealApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDatabase(app:Application):MealDatabase = Room.databaseBuilder(app,MealDatabase::class.java,"meal.db").build()
 
 
     @Provides
