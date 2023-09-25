@@ -20,6 +20,7 @@ import com.example.food_app.view_models.HomeViewModel
 import com.example.test_food_app.R
 import com.example.test_food_app.adapters.CategoriesHomeAdapter
 import com.example.test_food_app.adapters.PopularMealsAdapter
+import com.example.test_food_app.databinding.CategoriesRowBinding
 import com.example.test_food_app.databinding.FragmentHomeBinding
 import com.example.test_food_app.ui.activities.MealActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,13 +63,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun onCategoryMealClick(){
+        /*val binding2: CategoriesRowBinding
+        binding2 = CategoriesRowBinding.inflate(LayoutInflater.from(parentFragment?.context))
+        binding2.constraintCategory.setOnClickListener {
+            val fragment =CategoriesFragment()
+            val data =categoriesHomeAdapter.onCategoryMealClick
+            val bundle = Bundle()
+            bundle.putString("categoryName",data.strCategory)
+            fragment.arguments = bundle
+            fragment.findNavController().navigate(R.id.action_fragment_home_to_fragment_category,bundle)
+        }*/
        categoriesHomeAdapter.onCategoryMealClick = {data->
-           val fragment =CategoriesFragment()
+           val fragment =CategoryFragment()
 
            val bundle = Bundle()
            bundle.putString("categoryName",data.strCategory)
            fragment.arguments = bundle
            findNavController().navigate(R.id.action_fragment_home_to_fragment_category,bundle)
+
        }
     }
 

@@ -13,6 +13,7 @@ class CategoriesHomeAdapter:RecyclerView.Adapter<CategoriesHomeAdapter.ViewHolde
 
     lateinit var onCategoryMealClick :((com.example.test_food_app.data.Category)->Unit)
 
+    //lateinit var onCategoryMealClick:com.example.test_food_app.data.Category
     private val diffUtil = object :DiffUtil.ItemCallback<com.example.test_food_app.data.Category>(){
         override fun areItemsTheSame(
             oldItem: com.example.test_food_app.data.Category,
@@ -52,6 +53,7 @@ class CategoriesHomeAdapter:RecyclerView.Adapter<CategoriesHomeAdapter.ViewHolde
         holder.itemView.setOnClickListener{
             onCategoryMealClick.invoke(data)
         }
+        //onCategoryMealClick=data
     }
 
     override fun getItemCount() = differ.currentList.size

@@ -26,7 +26,7 @@
         tools:layout="@layout/fragment_categories" />
     <fragment
         android:id="@+id/fragment_category"
-        android:name="com.example.test_food_app.CategoryFragment"
+        android:name="com.example.test_food_app.ui.fragments.CategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category" >
         <action
