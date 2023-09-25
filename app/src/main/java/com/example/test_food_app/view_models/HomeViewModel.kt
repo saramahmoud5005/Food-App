@@ -27,16 +27,16 @@ class HomeViewModel @Inject constructor(
     //save data when rotate
     private var saveStateRandomMeal:Meal?=null
     fun getRandomMeal(){
-        saveStateRandomMeal?.let{
-            randomMeal->_getRandomMealLiveData.postValue(randomMeal)
+        /*saveStateRandomMeal?.let{ randomMeal->
+            _getRandomMealLiveData.postValue(randomMeal)
             return@let
-        }
+        }*/
         viewModelScope.launch {
             val response= homeRepository.getRandomMeal()
             response.body()!!.meals.let {
                 _getRandomMealLiveData.postValue(it[0])
             }
-            saveStateRandomMeal = response.body()!!.meals[0]
+            //saveStateRandomMeal = response.body()!!.meals[0]
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.test_food_app.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import com.example.food_app.view_models.HomeViewModel
 import com.example.test_food_app.adapters.CategoriesHomeAdapter
 import com.example.test_food_app.adapters.PopularMealsAdapter
 import com.example.test_food_app.databinding.FragmentHomeBinding
+import com.example.test_food_app.ui.activities.MealActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -69,7 +71,19 @@ class HomeFragment : Fragment() {
             Glide.with(this)
                 .load(data.strMealThumb)
                 .into(binding.randomImage)
+            try {
+                binding.cardViewHome.setOnClickListener{
+                    val intent = Intent(context,MealActivity::class.java)
+                    intent.putExtra("mealId",data.idMeal)
+                    intent.putExtra("mealTitle",data.strMeal)
+                    intent.putExtra("mealImg",data.strMealThumb)
+                    startActivity(intent)
+                }
+            }catch (t:Throwable){
+                Log.d("HomeFragment",t.message.toString())
+            }
         }
+
     }
     private fun getCategories(){
         homeViewModel.getCategories()
