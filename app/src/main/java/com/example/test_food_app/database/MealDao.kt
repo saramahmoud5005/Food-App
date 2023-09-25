@@ -14,6 +14,6 @@ interface MealDao {
     suspend fun deleteMeal(meal: Meal)
 
     @Query("SELECT * FROM mealInformation")
-    fun getSavedMeal():Flow<Meal>
+    fun getSavedMeal():Flow<List<Meal>>
 
 }

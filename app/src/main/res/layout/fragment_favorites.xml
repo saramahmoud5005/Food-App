@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.FavoritesFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".ui.fragments.FavoritesFragment"
+    android:orientation="vertical">
+    
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/count_favorite_meals_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Count of favorite meals"
+        android:layout_gravity="center"
+        android:textSize="@dimen/_15ssp"/>
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorite_meals_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    
+
+</LinearLayout>

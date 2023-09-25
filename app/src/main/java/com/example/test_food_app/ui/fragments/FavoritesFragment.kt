@@ -5,16 +5,56 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.test_food_app.R
+import com.example.test_food_app.adapters.FavoriteAdapter
+import com.example.test_food_app.databinding.FavoriteRowBinding
+import com.example.test_food_app.databinding.FragmentFavoritesBinding
+import com.example.test_food_app.view_models.MealViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
+@AndroidEntryPoint
 class FavoritesFragment : Fragment() {
 
+    private lateinit var binding: FragmentFavoritesBinding
+    private lateinit var favoriteAdapter: FavoriteAdapter
+    private val mealViewModel:MealViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        favoriteAdapter = FavoriteAdapter()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+        binding = FragmentFavoritesBinding.inflate(layoutInflater,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setFavoriteRecView()
+        getSavedData()
+    }
+
+    private fun getSavedData(){
+        lifecycleScope.launchWhenStarted {
+              mealViewModel.getSavedMeal().collect{ savedData->
+              favoriteAdapter.differ.submitList(savedData)
+                  binding.countFavoriteMealsTv.text = "Favourite Meals: "+savedData.size.toString()
+          }
+        }
+    }
+
+    private fun setFavoriteRecView(){
+        binding.favoriteMealsRv.apply{
+            layoutManager = GridLayoutManager(context,2,RecyclerView.VERTICAL,false)
+            adapter = favoriteAdapter
+        }
     }
 }
