@@ -10,7 +10,7 @@ import javax.inject.Inject
 class MealRepository @Inject constructor(
     private val mealApi: MealApi,
     private val mealDatabase: MealDatabase
-    ) {
+) {
 
     private val database = mealDatabase.mealDao()
     val getSavedMeal = database.getSavedMeal()

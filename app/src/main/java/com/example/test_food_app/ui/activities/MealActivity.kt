@@ -39,8 +39,8 @@ class MealActivity:AppCompatActivity() {
         binding.fltBtnFav.setOnClickListener{
             mealViewModel.insertOrUpdateMeal(saveMeal!!)
             lifecycleScope.launchWhenStarted {
-                mealViewModel.getSavedMeal().collect{ data->
-                    Log.d("MealActivity",data.toString())
+                mealViewModel.getSavedMeal()!!.collect{ sMeal->
+                    Log.d("MealActivity",sMeal.toString())
                 }
             }
 

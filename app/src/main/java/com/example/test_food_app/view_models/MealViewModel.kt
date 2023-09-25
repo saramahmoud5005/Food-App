@@ -21,9 +21,10 @@ class MealViewModel @Inject constructor(private val mealRepository: MealReposito
         viewModelScope.launch {
             try {
                 val response = mealRepository.getMealInfo(mealId)
-                response.body()?.meals.let{
-                    _getMealInfoLiveData.postValue(data[0])
-                }
+                /*response.body()?.meals.let{
+
+                }*/
+                _getMealInfoLiveData.postValue(response.body()!!.meals[0])
             }catch (t:Throwable){
                 Log.d("MealViewModel",t.message.toString())
             }
