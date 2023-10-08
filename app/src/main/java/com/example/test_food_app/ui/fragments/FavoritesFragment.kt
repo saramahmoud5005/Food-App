@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.food_app.data.Meal
 import com.example.test_food_app.R
 import com.example.test_food_app.adapters.FavoriteAdapter
 import com.example.test_food_app.databinding.FavoriteRowBinding
@@ -40,6 +42,9 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setFavoriteRecView()
         getSavedData()
+
+        //todo
+        onFavoriteMealClick()
     }
 
     private fun getSavedData(){
@@ -48,6 +53,16 @@ class FavoritesFragment : Fragment() {
               favoriteAdapter.differ.submitList(savedData)
                   binding.countFavoriteMealsTv.text = "Favourite Meals: "+savedData.size.toString()
           }
+        }
+    }
+
+    //todo
+    private fun onFavoriteMealClick(){
+
+        favoriteAdapter.onFavoriteMealClick = {data->
+            lifecycleScope.launchWhenStarted {
+                mealViewModel.deleteMeal(data)
+            }
         }
     }
 

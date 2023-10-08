@@ -29,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
-    private val homeViewModel : HomeViewModel by viewModels ()
+    private val homeViewModel : HomeViewModel by viewModels()
     private lateinit var popularMealsAdapter:PopularMealsAdapter
     private lateinit var categoriesHomeAdapter:CategoriesHomeAdapter
 
@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
     private fun onPopularMealClick(){
         popularMealsAdapter.onPopularMealClick = { data->
             val intent = Intent(context,MealActivity::class.java)
-            intent.putExtra("mealId",data.idMeal)
+            intent.putExtra("mealId",data.idMeal.toInt())
             intent.putExtra("mealTitle",data.strMeal)
             intent.putExtra("mealImg",data.strMealThumb)
             startActivity(intent)

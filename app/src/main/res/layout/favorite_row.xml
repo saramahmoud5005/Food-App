@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/_160sdp"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/_220sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="@dimen/_10sdp"
     app:cardElevation="@dimen/_5sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/favorite_meal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,20 +21,33 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/meal_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Meal"
             app:layout_constraintTop_toBottomOf="@+id/favorite_img"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/delete_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold"
-            android:textColor="@color/purple_200"/>
+            android:textColor="@color/purple_200"
+            android:paddingLeft="@dimen/_7ssp"
+            android:paddingRight="@dimen/_2ssp"/>
+
+        <ImageView
+            android:id="@+id/delete_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/favorite_img"
+            app:layout_constraintStart_toEndOf="@+id/meal_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_delete"
+            android:paddingRight="@dimen/_4ssp"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

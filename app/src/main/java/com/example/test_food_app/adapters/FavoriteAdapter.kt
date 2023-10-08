@@ -11,6 +11,8 @@ import com.example.test_food_app.databinding.FavoriteRowBinding
 
 class FavoriteAdapter :RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
 
+    //todo
+    lateinit var onFavoriteMealClick :((Meal)->Unit)
     private val diffUtil = object :DiffUtil.ItemCallback<Meal>(){
         override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
             return oldItem.idMeal==newItem.idMeal
@@ -39,6 +41,11 @@ class FavoriteAdapter :RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
             .into(holder.binding.favoriteImg)
 
         holder.binding.mealTv.text = data.strMeal
+
+        //todo
+        holder.itemView.setOnClickListener{
+            onFavoriteMealClick.invoke(data)
+        }
     }
 
     override fun getItemCount() = differ.currentList.size

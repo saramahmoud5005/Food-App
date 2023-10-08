@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -20,7 +21,7 @@ import kotlinx.coroutines.flow.collect
 class MealActivity:AppCompatActivity() {
 
     private lateinit var binding: ActivityMealBinding
-    private lateinit var mealId:String
+    private var mealId:Int = 0
     private lateinit var mealTitle:String
     private lateinit var mealImg:String
     private lateinit var virdoLink:String
@@ -33,11 +34,25 @@ class MealActivity:AppCompatActivity() {
         setContentView(binding.root)
 
         getMealInfo()
-        mealViewModel.getMealInfo(mealId)
+        mealViewModel.getMealInfo(mealId.toString())
         setMealInfoInViews()
 
         binding.fltBtnFav.setOnClickListener{
-            mealViewModel.insertOrUpdateMeal(saveMeal!!)
+            //
+            if(saveMeal!=null&&mealId!=0)
+            {
+                mealViewModel.insertOrUpdateMeal(saveMeal!!)
+                Toast.makeText(this,"Meal is saved in Fav",Toast.LENGTH_SHORT).show();
+
+            }else{
+                Toast.makeText(this,"MealId${saveMeal?.idMeal?:0}mealId: $mealId",Toast.LENGTH_SHORT).show();
+            }
+        }
+        binding.videoImg.setOnClickListener {
+            if (virdoLink!=null && virdoLink!="") {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(virdoLink))
+                startActivity(intent)
+            }
         }
 
     }
@@ -45,9 +60,9 @@ class MealActivity:AppCompatActivity() {
 
     private fun getMealInfo(){
        val intent =intent
-        mealId = intent.getStringExtra("mealId").toString()
         mealTitle = intent.getStringExtra("mealTitle").toString()
         mealImg = intent.getStringExtra("mealImg").toString()
+        mealId = intent.getIntExtra("mealId",0)
 
         Glide.with(applicationContext)
             .load(mealImg)
@@ -59,16 +74,12 @@ class MealActivity:AppCompatActivity() {
     private var saveMeal:Meal?=null
     private fun setMealInfoInViews(){
         mealViewModel.getMealInfoLiveData.observe(this, Observer {data ->
-
-            saveMeal = data
             binding.categoryTv.text = "Category: "+data.strCategory
             binding.locationTv.text = "Location: "+data.strArea
             binding.detailsInstructionsTv.text = data.strInstructions
             virdoLink = data.strYoutube
-            binding.videoImg.setOnClickListener {
-                val intent =Intent(Intent.ACTION_VIEW, Uri.parse(virdoLink))
-                startActivity(intent)
-            }
+            saveMeal= data
+
         })
     }
 }
