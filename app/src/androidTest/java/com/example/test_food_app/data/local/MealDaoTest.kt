@@ -60,4 +60,18 @@ class MealDaoTest {
 
         assertThat(allMeals).contains(meal)
     }
+
+    @Test
+    fun deleteMeal() = runBlocking{
+        val meal = Meal(1,"MealCategory","MealInstruction",
+            "MealName","MealPhoto",
+            "MealThumb","MealSource",
+            "MealTag","MealYoutube")
+
+        dao.deleteMeal(meal)
+
+        val allMeals = dao.getSavedMealTest().getOrAwaitValue()
+
+        assertThat(allMeals).doesNotContain(meal)
+    }
 }
