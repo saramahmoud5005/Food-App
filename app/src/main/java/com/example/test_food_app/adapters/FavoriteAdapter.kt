@@ -43,7 +43,7 @@ class FavoriteAdapter :RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
         holder.binding.mealTv.text = data.strMeal
 
         //todo
-        holder.itemView.setOnClickListener{
+        holder.binding.deleteIcon.setOnClickListener{
             onFavoriteMealClick.invoke(data)
         }
     }
