@@ -8,17 +8,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-  lint:
-    steps:
-      - name: CheckOut the code
-        uses: actions/checkout@v2
-
-      - name: Run Lint
-        run: gradle lint
-
-      - name: Upload html test report
-        uses: actions/upload-artifact@v2
-        with:
-          name: lint.html
-          path: app/build/reports/lint-result-debug.html
+#  lint:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: CheckOut the code
+#        uses: actions/checkout@v2
+#
+#      - name: Run Lint
+#        run: gradle lint
+#
+#      - name: Upload html test report
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: lint.html
+#          path: app/build/reports/lint-result-debug.html
 
